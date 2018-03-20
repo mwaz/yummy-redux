@@ -17,6 +17,7 @@ export const CategoryComponent = () => {
           </div>
         </div>
       </div>
-    </div>);
+    </div>
+  );
 };
 export default CategoryComponent;

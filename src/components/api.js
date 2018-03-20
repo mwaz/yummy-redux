@@ -6,11 +6,11 @@ export default {
     login: credentials =>
       axios
         .post(` ${baseUrl}/auth/login`, credentials)
-        .then(response => response.data.message),
+        .then(response => response.data),
 
     register: userdetails =>
       axios
         .post(` ${baseUrl}/auth/register`, userdetails)
-        .then(response => response.data.message)
+        .then(response => response.data)
   }
 };

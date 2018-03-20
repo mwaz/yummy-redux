@@ -1,16 +1,45 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as actions from '../actions/auth';
 
-const NavigationBar = () => {
-    return(
+const NavigationBar = ({ isAuthenticated, logout }) => {
+  return (
     <nav>
-        <div className="nav-wrapper" style={{ backgroundColor: '#5D6D7E'}}>
-            <a href="#" class="brand-logo" style={{fontSize: '1.6em'}}>Yummy Recipes</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Password Reset</a></li>
-            </ul>
-        </div>
+      <div className="nav-wrapper" style={{ backgroundColor: '#5D6D7E' }}>
+        <a className="brand-logo" style={{ fontSize: '1.6em' }}>
+          Yummy Recipes
+        </a>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li>
+            {!isAuthenticated ? (
+              <Link to="/login"> Login </Link>
+            ) : (
+              <Link to="/login" onClick={() => logout()}>
+                {' '}
+                Logout{' '}
+              </Link>
+            )}
+          </li>
+          <li>
+            <Link to="#"> Password Reset </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
-    )}
-export default NavigationBar;
+  );
+};
+NavigationBar.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.users.access_token
+  };
+}
+export default connect(mapStateToProps, { logout: actions.logout })(
+  NavigationBar
+);

@@ -11,14 +11,21 @@ import './components/styles/main.css';
 import '../node_modules/materialize-css';
 import allReducers from './reducers';
 import App from './App';
+import { userLoggedIn } from './components/actions/auth';
 
 /**
  * create store creates the store for our states
  */
+
 const store = createStore(
   allReducers,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+if (localStorage.token) {
+  const user = { access_token: localStorage.token };
+  store.dispatch(userLoggedIn(user));
+}
 
 ReactDOM.render(
   <Provider store={store}>

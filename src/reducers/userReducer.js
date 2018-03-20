@@ -1,4 +1,8 @@
-import { USER_LOGGED_IN, USER_REGISTERED } from '../components/types';
+import {
+  USER_LOGGED_IN,
+  USER_REGISTERED,
+  USER_LOGGED_OUT
+} from '../components/types';
 
 export default function user(state = {}, action = {}) {
   switch (action.type) {
@@ -6,6 +10,8 @@ export default function user(state = {}, action = {}) {
       return action.user;
     case USER_REGISTERED:
       return action.user;
+    case USER_LOGGED_OUT:
+      return {};
     default:
       return state;
   }
