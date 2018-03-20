@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Validator from 'validator';
 import InlineError from '../../messages/InlineError';
 import PropTypes from 'prop-types';
+import { Alert } from 'react-bootstrap';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -27,7 +28,15 @@ export default class LoginForm extends Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data);
+      this.setState({ loading: true });
+      this.props.submit(this.state.data).catch(error => {
+        if (error.response) {
+          this.setState({
+            errors: error.response.data,
+            loading: false
+          });
+        }
+      });
     }
   };
 
@@ -38,11 +47,28 @@ export default class LoginForm extends Component {
     return errors;
   };
   render() {
-    const { data, errors } = this.state;
+    const { data, errors, loading } = this.state;
+    console.log(errors);
     return (
       <div>
         <div className="row">
           <form className="col s12" onSubmit={this.onSubmit}>
+            {loading && (
+              <div className="progress">
+                <div className="indeterminate" />
+              </div>
+            )}
+
+            {errors.message && (
+              <div
+                className="alert alert-danger"
+                role="alert"
+                style={{ color: '#880000' }}
+              >
+                <strong> {errors.message} </strong>
+              </div>
+            )}
+
             <div className="row">
               <div className="input-field col s12">
                 <input

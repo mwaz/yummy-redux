@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const InlineError = ({ text }) => (
-  <span style={{ color: 'black' }}> {text} </span>
+  <span style={{ color: '#880000' }}> {text} </span>
 );
 
 InlineError.propTypes = {
