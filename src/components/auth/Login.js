@@ -8,7 +8,7 @@ import { login } from '../actions/auth';
 class Login extends Component {
   submit = data =>
     // console.log(this.props);
-    this.props.login(data).then(() => this.props.history.push(''));
+    this.props.login(data).then(() => this.props.redirectCategories());
 
   render() {
     return (

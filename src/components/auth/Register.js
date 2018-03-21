@@ -6,7 +6,7 @@ import { register } from '../actions/auth';
 
 class Register extends Component {
   submit = data =>
-    this.props.register(data).then(() => this.props.history.push('/login'));
+    this.props.register(data).then(() => this.props.getLoginPage());
 
   render() {
     return (

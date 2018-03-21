@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from './components/pages/LandingPage';
 import { AuthBody } from './components/auth/AuthBody';
 import { CategoryComponent } from './components/categories/Category';
+import UserRoute from './components/routes/UserRoute';
+import GuestRoute from './components/routes/GuestRoute';
 
 const App = () => {
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
-      <Route path="/Login" exact component={AuthBody} />
-      <Route path="/Categories" exact component={CategoryComponent} />
+      <GuestRoute path="/login" exact component={AuthBody} />
+      <UserRoute path="/categories" exact component={CategoryComponent} />
     </Switch>
   );
 };
