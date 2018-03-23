@@ -1,16 +1,24 @@
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
-const baseUrl = 'http://0.0.0.0:5000/yummy_api/v1';
 export default {
   user: {
     login: credentials =>
-      axios
-        .post(` ${baseUrl}/auth/login`, credentials)
+      axiosInstance
+        .post('/auth/login', credentials)
         .then(response => response.data),
 
     register: userdetails =>
-      axios
-        .post(` ${baseUrl}/auth/register`, userdetails)
+      axiosInstance
+        .post('/auth/register', userdetails)
         .then(response => response.data)
+  },
+  categories: {
+    createCategory: categoryName =>
+      axiosInstance
+        .post('categories/', categoryName)
+        .then(response => response.data),
+
+    getCategories: () =>
+      axiosInstance.get('/categories/').then(response => response.data)
   }
 };

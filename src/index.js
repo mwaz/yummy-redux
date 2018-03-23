@@ -13,6 +13,8 @@ import allReducers from './reducers';
 import App from './App';
 import { userLoggedIn } from './components/actions/auth';
 
+require('materialize-css');
+
 /**
  * create store creates the store for our states
  */
