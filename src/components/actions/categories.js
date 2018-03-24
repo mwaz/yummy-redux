@@ -32,6 +32,11 @@ export const createCategory = categoryName => dispatch =>
     .createCategory(categoryName)
     .then(categoryObject => dispatch(categoryCreated(categoryObject)));
 
+export const editCategory = categoryId => dispatch =>
+  api.categories
+    .editCategory(categoryId)
+    .then(categoryObject => dispatch(categoryEdited(categoryObject)));
+
 export const getCategories = () => dispatch =>
   axiosInstance
     .get('/categories/')

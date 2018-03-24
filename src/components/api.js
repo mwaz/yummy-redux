@@ -18,6 +18,11 @@ export default {
         .post('categories/', categoryName)
         .then(response => response.data),
 
+    editCategory: (categoryName, id) =>
+      axiosInstance
+        .put(`categories/${id}`, categoryName)
+        .then(response => response.data),
+
     getCategories: () =>
       axiosInstance.get('/categories/').then(response => response.data)
   }
