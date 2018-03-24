@@ -32,9 +32,9 @@ export const createCategory = categoryName => dispatch =>
     .createCategory(categoryName)
     .then(categoryObject => dispatch(categoryCreated(categoryObject)));
 
-export const editCategory = categoryId => dispatch =>
+export const editCategory = (categoryId, categoryName) => dispatch =>
   api.categories
-    .editCategory(categoryId)
+    .editCategory(categoryId, categoryName)
     .then(categoryObject => dispatch(categoryEdited(categoryObject)));
 
 export const getCategories = () => dispatch =>
