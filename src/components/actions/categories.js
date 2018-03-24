@@ -37,6 +37,11 @@ export const editCategory = (categoryId, categoryName) => dispatch =>
     .editCategory(categoryId, categoryName)
     .then(categoryObject => dispatch(categoryEdited(categoryObject)));
 
+export const deleteCategory = categoryId => dispatch =>
+  api.categories
+    .deleteCategory(categoryId)
+    .then(categoryObject => dispatch(categoryEdited(categoryObject)));
+
 export const getCategories = () => dispatch =>
   axiosInstance
     .get('/categories/')

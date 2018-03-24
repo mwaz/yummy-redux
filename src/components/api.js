@@ -18,9 +18,14 @@ export default {
         .post('categories/', categoryName)
         .then(response => response.data),
 
-    editCategory: (categoryName, id) =>
+    editCategory: (categoryName, categoryId) =>
       axiosInstance
-        .put(`categories/${id}`, categoryName)
+        .put(`categories/${categoryId}`, categoryName)
+        .then(response => response.data),
+
+    deleteCategory: categoryId =>
+      axiosInstance
+        .delete(`categories/${categoryId}`)
         .then(response => response.data),
 
     getCategories: () =>
