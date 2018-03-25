@@ -125,7 +125,7 @@ class CategoryComponent extends React.Component {
                       />
                     )))
                   ) : (
-                    <p> No stuff </p>
+                    <p> No categories </p>
                   )}
                 </div>
               </div>
