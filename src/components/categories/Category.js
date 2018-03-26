@@ -7,6 +7,7 @@ import CategoryModal from '../common/CategoryModal';
 import { categories } from '../../reducers/categories';
 import InlineError from '../messages/InlineError';
 import { getCategories } from '../actions/categories';
+import SearchForm from '../common/SearchForm';
 
 class CategoryComponent extends React.Component {
   constructor(props) {
@@ -95,21 +96,7 @@ class CategoryComponent extends React.Component {
                   </div>
                   <div className="col s12 m4" />
                   <div className="col s12 m4">
-                    <div
-                      className="card-panel"
-                      style={{ backgroundColor: '#1B4F72' }}
-                    >
-                      <div className="input-field">
-                        <input
-                          id="search"
-                          type="search"
-                          placeholder="Search Categories"
-                        />
-                        <label className="label-icon" htmlFor="search">
-                          <i className="material-icons">search</i>
-                        </label>
-                      </div>
-                    </div>
+                    <SearchForm />
                   </div>
                 </div>
 
