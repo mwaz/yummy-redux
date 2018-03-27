@@ -24,7 +24,7 @@ const Card = props => {
             </div>
             <div className="col s3">
               {' '}
-              <DeleteModal />
+              <DeleteModal delete="Category" delete_what="Delete Category" />
             </div>
           </div>
         </div>
