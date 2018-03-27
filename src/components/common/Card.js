@@ -1,4 +1,7 @@
 import React from 'react';
+import ViewModal from '../categories/forms/ViewModal';
+import EditModal from '../categories/forms/EditModal';
+import DeleteModal from '../categories/forms/DeleteModal';
 
 const Card = props => {
   return (
@@ -10,9 +13,20 @@ const Card = props => {
           <p>Modified: {props.date_modified}</p>
         </div>
         <div className="card-action">
-          <a href="#"> View </a>
-          <a href="#">Edit</a>
-          <a href="#">Delete</a>
+          <div className="row">
+            <div className="col s3">
+              {' '}
+              <ViewModal />{' '}
+            </div>
+            <div className="col s3">
+              {' '}
+              <EditModal />{' '}
+            </div>
+            <div className="col s3">
+              {' '}
+              <DeleteModal />
+            </div>
+          </div>
         </div>
       </div>
     </div>
