@@ -5,7 +5,6 @@ import {
   CATEGORY_DELETED
 } from '../types';
 import api from '../api';
-import axiosInstance from '../axiosInstance';
 
 export const categoryCreated = categoryObject => ({
   type: CATEGORY_CREATED,
@@ -32,17 +31,20 @@ export const createCategory = categoryName => dispatch =>
     .createCategory(categoryName)
     .then(categoryObject => dispatch(categoryCreated(categoryObject)));
 
-export const editCategory = (categoryId, categoryName) => dispatch =>
+export const editCategory = (name, id) => dispatch =>
   api.categories
-    .editCategory(categoryId, categoryName)
-    .then(categoryObject => dispatch(categoryEdited(categoryObject)));
+    .editCategory(name, id)
+    .then(
+      categoryObject => dispatch(categoryEdited(categoryObject)),
+      console.log(`${name} here `)
+    );
 
 export const deleteCategory = categoryId => dispatch =>
   api.categories
     .deleteCategory(categoryId)
-    .then(categoryObject => dispatch(categoryEdited(categoryObject)));
+    .then(categoryObject => dispatch(categoryDeleted(categoryObject)));
 
 export const getCategories = () => dispatch =>
-  axiosInstance
-    .get('/categories/')
-    .then(response => dispatch(categoryFetched(response.data)));
+  api.categories
+    .getCategories()
+    .then(categoryObject => dispatch(categoryFetched(categoryObject)));

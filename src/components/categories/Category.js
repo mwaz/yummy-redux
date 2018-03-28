@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Pagination, Row } from 'react-materialize';
 import NavigationBar from '../common/NavigationBar';
 import Card from '../common/Card';
 import CategoryModal from '../common/CategoryModal';
@@ -8,6 +9,7 @@ import { categories } from '../../reducers/categories';
 import InlineError from '../messages/InlineError';
 import { getCategories } from '../actions/categories';
 import SearchForm from '../common/SearchForm';
+import Col from 'react-materialize/lib/Col';
 
 class CategoryComponent extends React.Component {
   constructor(props) {
@@ -50,6 +52,7 @@ class CategoryComponent extends React.Component {
       errors.category_name = 'Category Name cannot be empty';
     return errors;
   };
+  redirectCategories = () => this.props.history.push('/categories');
 
   componentDidMount() {
     this.props.getCategories();
@@ -106,6 +109,8 @@ class CategoryComponent extends React.Component {
                     (<p> blah </p>,
                     categories.map(category => (
                       <Card
+                        redirectCategories={this.redirectCategories}
+                        category_id={category.id}
                         category_name={category.category_name}
                         date_created={category.date_created}
                         date_modified={category.date_modified}
@@ -115,6 +120,13 @@ class CategoryComponent extends React.Component {
                     <p> No categories </p>
                   )}
                 </div>
+                <Row>
+                  <Col className="s2 m4"> </Col>
+                  <Col className="s12 m4">
+                    <Pagination items={10} activePage={2} maxButtons={8} />
+                  </Col>
+                  <Col className="s2 m4"> </Col>
+                </Row>
               </div>
               <div className="col s12 m1"> </div>
             </div>
