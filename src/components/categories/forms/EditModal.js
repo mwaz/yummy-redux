@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Row, Input, Button } from 'react-materialize';
 
 import InlineError from '../../messages/InlineError';
+import { error } from 'util';
 
 class EditModal extends React.Component {
   constructor(props) {
@@ -55,6 +56,16 @@ class EditModal extends React.Component {
     const { categories } = this.props;
     return (
       <Modal header="Edit Category" trigger={<a href="#"> Edit </a>}>
+        {errors.message && (
+          <div
+            className="alert alert-danger"
+            role="alert"
+            style={{ color: '#880000' }}
+          >
+            <strong> {errors.message} </strong>
+          </div>
+        )}
+
         <form onSubmit={this.onSubmit}>
           <div>
             {errors && <InlineError text={errors.category_name} />}

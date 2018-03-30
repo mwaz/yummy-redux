@@ -1,23 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ViewModal from '../categories/forms/ViewModal';
 import EditModal from '../categories/forms/EditModal';
 import DeleteModal from '../categories/forms/DeleteModal';
-import { editCategory } from '../actions/categories';
-import { connect } from 'react-redux';
+import { Toast } from 'react-materialize';
+import {
+  editCategory,
+  getCategories,
+  deleteCategory
+} from '../actions/categories';
 
 class Card extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category_id: props.category_id
+      data: {
+        category_id: props.category_id
+      },
+      close: false,
+      display: 'none'
     };
   }
   submit = data =>
     this.props
-      .editCategory(data, this.state.category_id)
-      .then(() => this.props.redirectCategories(), console.log(data));
+      .editCategory(data, this.state.data.category_id)
+      .then(
+        () => this.props.redirectCategories(),
+        this.setState({ close: 'true' })
+      );
+  deleteAction = () =>
+    this.props
+      .deleteCategory(this.state.data.category_id)
+      .then(this.setState({ display: 'none' }));
 
   render() {
+    const { close } = this.state;
     return (
       <div className="col s12 m4">
         <div className="card" style={{ backgroundColor: '#1B4F72' }}>
@@ -38,11 +55,19 @@ class Card extends React.Component {
                   submit={this.submit}
                   category_name={this.props.category_name}
                   category_id={this.props.category_id}
+                  close={close}
                 />{' '}
               </div>
               <div className="col s3">
                 {' '}
-                <DeleteModal delete="Category" delete_what="Delete Category" />
+                <DeleteModal
+                  deleteAction={this.deleteAction}
+                  delete="category and all its recipes"
+                  delete_what="Delete Category"
+                  category_name={this.props.category_name}
+                  category_id={this.props.category_id}
+                  display={this.state.display}
+                />
               </div>
             </div>
           </div>
@@ -51,4 +76,6 @@ class Card extends React.Component {
     );
   }
 }
-export default connect(null, { editCategory })(Card);
+export default connect(null, { editCategory, getCategories, deleteCategory })(
+  Card
+);
