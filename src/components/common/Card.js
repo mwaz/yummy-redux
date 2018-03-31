@@ -18,23 +18,22 @@ class Card extends React.Component {
         category_id: props.category_id
       },
       close: false,
-      display: 'none'
+      display: 'none',
+      show: 'close'
     };
   }
   submit = data =>
     this.props
       .editCategory(data, this.state.data.category_id)
-      .then(
-        () => this.props.redirectCategories(),
-        this.setState({ close: 'true' })
-      );
+      .then(this.setState({ show: 'close' }));
   deleteAction = () =>
     this.props
       .deleteCategory(this.state.data.category_id)
       .then(this.setState({ display: 'none' }));
 
   render() {
-    const { close } = this.state;
+    const { isOpen } = this.state;
+    console.log({ isOpen });
     return (
       <div className="col s12 m4">
         <div className="card" style={{ backgroundColor: '#1B4F72' }}>
@@ -52,10 +51,11 @@ class Card extends React.Component {
               <div className="col s3">
                 {' '}
                 <EditModal
+                  show={this.state.show}
+                  method_state={this.state.isOpen}
                   submit={this.submit}
                   category_name={this.props.category_name}
                   category_id={this.props.category_id}
-                  close={close}
                 />{' '}
               </div>
               <div className="col s3">

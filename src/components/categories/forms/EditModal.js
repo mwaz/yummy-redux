@@ -55,7 +55,11 @@ class EditModal extends React.Component {
     const { errors, data } = this.state;
     const { categories } = this.props;
     return (
-      <Modal header="Edit Category" trigger={<a href="#"> Edit </a>}>
+      <Modal
+        modal={this.props.show}
+        header="Edit Category"
+        trigger={<a href="#"> Edit </a>}
+      >
         {errors.message && (
           <div
             className="alert alert-danger"
