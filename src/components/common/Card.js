@@ -19,7 +19,8 @@ class Card extends React.Component {
       },
       close: false,
       display: 'none',
-      show: 'close'
+      show: 'close',
+      opacity: 0
     };
   }
   submit = data =>
@@ -29,7 +30,7 @@ class Card extends React.Component {
   deleteAction = () =>
     this.props
       .deleteCategory(this.state.data.category_id)
-      .then(this.setState({ display: 'none' }));
+      .then(this.setState({ display: 'none', opacity: 0 }));
 
   render() {
     const { isOpen } = this.state;
@@ -56,6 +57,7 @@ class Card extends React.Component {
                   submit={this.submit}
                   category_name={this.props.category_name}
                   category_id={this.props.category_id}
+                  opacity={this.state.opacity}
                 />{' '}
               </div>
               <div className="col s3">

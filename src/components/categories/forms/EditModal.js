@@ -57,6 +57,7 @@ class EditModal extends React.Component {
     return (
       <Modal
         modal={this.props.show}
+        style={{opacity: this.props.opacity}}
         header="Edit Category"
         trigger={<a href="#"> Edit </a>}
       >
