@@ -1,9 +1,12 @@
 import React from 'react';
-import Toast from 'react-materialize';
+import { Toast } from 'react-materialize';
 
-const Toaster = props => (
-  <div>
-    <Toast toast={props.toast}> </Toast>
-  </div>
-);
-export default Toaster;
+export default class Toaster extends React.Component {
+  render() {
+    return (
+      <div>
+        <Toast toast={this.props.message_toast}> </Toast>
+      </div>
+    );
+  }
+}

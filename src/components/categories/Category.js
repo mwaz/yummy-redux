@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Pagination, Row } from 'react-materialize';
+import Notifications, { notify } from 'react-notify-toast';
+import { Pagination, Row, Toast } from 'react-materialize';
 import NavigationBar from '../common/NavigationBar';
 import Card from '../common/Card';
 import CategoryModal from '../common/CategoryModal';
@@ -53,20 +54,20 @@ class CategoryComponent extends React.Component {
     return errors;
   };
   redirectCategories = () => this.props.history.push('/categories');
+  // setMessage = () => ;
 
   componentDidMount() {
     this.props.getCategories();
   }
   render() {
-    console.log(this.props.categories);
     const { errors, data } = this.state;
     const { categories } = this.props;
-    // console.log('oooo', { categories });
 
-    console.log({ data });
     return (
       <div>
         <NavigationBar />
+        <Notifications />
+        {/* <Toast toast={props.} /> */}
         <div className="category-background">
           <div className="row">
             <div className="col s12 m1"> </div>
@@ -109,6 +110,7 @@ class CategoryComponent extends React.Component {
                     (<p> blah </p>,
                     categories.map(category => (
                       <Card
+                        setMessage={this.setMessage}
                         redirectCategories={this.redirectCategories}
                         category_id={category.id}
                         category_name={category.category_name}

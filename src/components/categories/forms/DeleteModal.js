@@ -18,6 +18,7 @@ class DeleteModal extends React.Component {
     return (
       <div>
         <Modal
+          open={this.props.open}
           style={{ display: this.props.display }}
           header={this.props.item_name}
           trigger={<a href="#"> Delete </a>}
