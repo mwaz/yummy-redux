@@ -3,37 +3,39 @@ import { connect } from 'react-redux';
 import ViewModal from '../categories/forms/ViewModal';
 import EditModal from '../categories/forms/EditModal';
 import DeleteModal from '../categories/forms/DeleteModal';
-import { Toast } from 'react-materialize';
+import Toaster from '../common/Toaster';
 import {
   editCategory,
   getCategories,
   deleteCategory
 } from '../actions/categories';
+import { notify } from 'react-notify-toast';
 
 class Card extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
-        category_id: props.category_id
+        category_id: props.category_id,
+        category_name: props.category_name
       },
-      close: false,
-      display: 'none',
-      show: 'close',
-      opacity: '1'
+      isOpen: false
     };
   }
   submit = data =>
     this.props
       .editCategory(data, this.state.data.category_id)
-      .then(this.setState({ display: 'none', opacity: 1 }));
+      .then(notify.show(`Succesfully edited category`, 'success', 6000));
   deleteAction = () =>
     this.props
       .deleteCategory(this.state.data.category_id)
-      .then(this.setState({ display: 'none' }));
+      .then(
+        this.setState({ isOpen: false }),
+        notify.show(`Succesfully deleted category`, 'error', 6000)
+      );
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, open } = this.state;
     console.log({ isOpen });
     return (
       <div className="col s12 m4">
@@ -52,24 +54,21 @@ class Card extends React.Component {
               <div className="col s3">
                 {' '}
                 <EditModal
-                  show={this.state.show}
-                  method_state={this.state.isOpen}
+                  // method_state={this.state.isOpen}
                   submit={this.submit}
                   category_name={this.props.category_name}
                   category_id={this.props.category_id}
-                  opacity={this.state.opacity}
-                  display={this.state.display}
                 />{' '}
               </div>
               <div className="col s3">
                 {' '}
                 <DeleteModal
+                  open={this.state.isOpen}
                   deleteAction={this.deleteAction}
                   delete="category and all its recipes"
                   delete_what="Delete Category"
                   category_name={this.props.category_name}
                   category_id={this.props.category_id}
-                  display={this.state.display}
                   // opacity={this.state.opacity}
                 />
               </div>

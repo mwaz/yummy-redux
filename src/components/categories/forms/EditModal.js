@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Row, Input, Button } from 'react-materialize';
-
 import InlineError from '../../messages/InlineError';
 import { error } from 'util';
 
@@ -17,7 +16,6 @@ class EditModal extends React.Component {
   }
 
   onChange = e => {
-    console.log(e);
     this.setState({
       data: { ...this.state.data, [e.target.name]: e.target.value }
     });
@@ -28,7 +26,7 @@ class EditModal extends React.Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.setState({ loading: true });
+      this.setState({ loading: true, editOpen: false });
       this.props.submit(this.state.data).catch(error => {
         if (error.response) {
           this.setState({
@@ -47,17 +45,15 @@ class EditModal extends React.Component {
     return errors;
   };
 
-  componentDidMount() {
-    this.props.getCategories;
-  }
-
   render() {
-    const { errors, data } = this.state;
+    const { errors, data, editOpen } = this.state;
     const { categories } = this.props;
+    console.log(editOpen);
     return (
       <Modal
-        modal={this.props.show}
-        style={{ display: this.props.display, opacity: this.props.opacity }}
+        id={this.props.category_id}
+        open={this.state.editOpen}
+        style={{ display: this.props.display }}
         header="Edit Category"
         trigger={<a href="#"> Edit </a>}
       >
@@ -94,11 +90,6 @@ class EditModal extends React.Component {
       </Modal>
     );
   }
-}
-function mapStateToProps(state) {
-  return {
-    categories: state.category
-  };
 }
 
 export default EditModal;
