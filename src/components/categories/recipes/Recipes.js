@@ -1,10 +1,58 @@
 import React from 'react';
-import Notifications, { toastify } from 'react-notify-toast';
+import { Button, Pagination, Row, Col } from 'react-materialize';
+import Notifications, { toastify, notify } from 'react-notify-toast';
 import NavigationBar from '../../common/NavigationBar';
 import InlineError from '../../messages/InlineError';
+import SearchForm from '../../common/SearchForm';
+import AddRecipe from '../../categories/recipes/forms/AddRecipe';
 
 class RecipeComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        recipe_name: '',
+        recipe_ingredients: '',
+        recipe_methods: ''
+      },
+      errors: {},
+      loading: false
+    };
+  }
+  onChange = e => {
+    this.setState({
+      data: { ...this.state.data, [e.target.name]: e.target.value }
+    });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const errors = this.validate(this.state.data);
+    this.setState({ errors });
+    if (Object.keys(errors).length === 0) {
+      this.props.addRecipe(this.state.data).catch(error => {
+        if (error.response) {
+          this.setState({
+            errors: error.response.data.message,
+            loading: false
+          });
+          notify.show(`${error.response.data.message}, 'error', 6000`);
+        }
+      });
+    }
+  };
+  validate(data) {
+    const errors = {};
+    if (!data.recipe_methods)
+      errors.recipe_methods = 'recipe methods cannot be blank';
+    if (!data.recipe_name) errors.recipe_name = 'recipe name cannot be blank';
+    if (!data.recipe_ingredients)
+      errors.recipe_ingredients = 'recipe ingredients cannot be blank';
+    return errors;
+  }
+
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <NavigationBar />
@@ -23,19 +71,10 @@ class RecipeComponent extends React.Component {
                       style={{ backgroundColor: '#1B4F72' }}
                     >
                       {errors && <InlineError text={errors.category_name} />}
-                      <CategoryModal
-                        onChange={this.onChange}
-                        value={data.category_name}
-                      />
+
                       <span className="white-text">
-                        <a
-                          style={{ marginRight: '30px' }}
-                          className="btn-floating btn-large waves-effect waves-light red"
-                          onClick={this.onSubmit}
-                        >
-                          <i className="material-icons">add</i>
-                        </a>
-                        Add New Category
+                        <h5 style={{ fontSize: '18px' }}>Add Recipes</h5>
+                        <AddRecipe onSubmit={this.onSubmit} />
                       </span>
                     </div>
                   </div>
@@ -47,21 +86,14 @@ class RecipeComponent extends React.Component {
 
                 {/* {categories.length === 0 && <AddCategories />} */}
                 <div className="row">
-                  {categories && categories.length > 0 ? (
-                    (<p> blah </p>,
-                    categories.map(category => (
-                      <Card
-                        setMessage={this.setMessage}
-                        redirectCategories={this.redirectCategories}
-                        category_id={category.id}
-                        category_name={category.category_name}
-                        date_created={category.date_created}
-                        date_modified={category.date_modified}
-                      />
-                    )))
-                  ) : (
-                    <p> No categories </p>
-                  )}
+                  <div className="col s12 m4">
+                    <div className="card blue-grey darken-1">
+                      <div className="card-content white-text">
+                        <span className="card-title">Card Title</span>
+                        <p>Just a card</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <Row>
                   <Col className="s2 m4"> </Col>
