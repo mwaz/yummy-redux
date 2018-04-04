@@ -1,9 +1,8 @@
 import React from 'react';
 import { Modal } from 'react-materialize';
 
-const ViewModal = () => (
-  <Modal header="Modal Header" trigger={<a href="#"> View </a>}>
-    <div>Stuff will be shown here</div>
-  </Modal>
+const ViewModal = props => (
+  <a href={`/categories/${props.category_id}/recipes/`}>View Recipes </a>
 );
+
 export default ViewModal;

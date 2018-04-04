@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Notifications, { notify } from 'react-notify-toast';
-import { Pagination, Row, Toast } from 'react-materialize';
+import { Pagination, Row, Toast, Button } from 'react-materialize';
 import NavigationBar from '../common/NavigationBar';
 import Card from '../common/Card';
 import CategoryModal from '../common/CategoryModal';
@@ -87,13 +87,13 @@ class CategoryComponent extends React.Component {
                         value={data.category_name}
                       />
                       <span className="white-text">
-                        <a
+                        <Button
                           style={{ marginRight: '30px' }}
                           className="btn-floating btn-large waves-effect waves-light red"
                           onClick={this.onSubmit}
                         >
                           <i className="material-icons">add</i>
-                        </a>
+                        </Button>
                         Add New Category
                       </span>
                     </div>
