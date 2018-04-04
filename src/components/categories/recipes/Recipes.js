@@ -53,6 +53,7 @@ class RecipeComponent extends React.Component {
 
   render() {
     const { errors } = this.state;
+    console.log({ errors });
     return (
       <div>
         <NavigationBar />
@@ -74,7 +75,7 @@ class RecipeComponent extends React.Component {
 
                       <span className="white-text">
                         <h5 style={{ fontSize: '18px' }}>Add Recipes</h5>
-                        <AddRecipe onSubmit={this.onSubmit} />
+                        <AddRecipe onSubmit={this.onSubmit} errors={errors} />
                       </span>
                     </div>
                   </div>
