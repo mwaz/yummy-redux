@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Row, Input, Button } from 'react-materialize';
 import InlineError from '../../messages/InlineError';
 import { error } from 'util';
+import { notify } from 'react-notify-toast';
 
 class EditModal extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class EditModal extends React.Component {
             errors: error.response.data,
             loading: false
           });
+          notify.show(errors);
         }
       });
     }

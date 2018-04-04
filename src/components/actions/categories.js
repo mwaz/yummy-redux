@@ -33,31 +33,17 @@ export const categoryDeleted = categoryObject => ({
 export const createCategory = categoryName => dispatch =>
   api.categories
     .createCategory(categoryName)
-    .then(
-      categoryObject => dispatch(categoryCreated(categoryObject)),
-      api.categories
-        .getCategories()
-        .then(categoryObject => dispatch(categoryFetched(categoryObject)))
-    );
+    .then(categoryObject => dispatch(categoryCreated(categoryObject)));
+
 export const editCategory = (name, id) => dispatch =>
   api.categories
     .editCategory(name, id)
-    .then(
-      categoryObject => dispatch(categoryEdited(categoryObject)),
-      api.categories
-        .getCategories()
-        .then(categoryObject => dispatch(categoryFetched(categoryObject)))
-    );
+    .then(categoryObject => dispatch(categoryEdited(categoryObject)));
 
 export const deleteCategory = categoryId => dispatch =>
   api.categories
     .deleteCategory(categoryId)
-    .then(
-      categoryObject => dispatch(categoryDeleted(categoryObject)),
-      api.categories
-        .getCategories()
-        .then(catObject => dispatch(categoryFetched(catObject)))
-    );
+    .then(categoryObject => dispatch(categoryDeleted(categoryObject)));
 
 export const getCategories = () => dispatch =>
   api.categories

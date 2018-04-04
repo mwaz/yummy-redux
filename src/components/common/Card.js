@@ -25,13 +25,17 @@ class Card extends React.Component {
   submit = data =>
     this.props
       .editCategory(data, this.state.data.category_id)
-      .then(notify.show(`Succesfully edited category`, 'success', 6000));
+      .then(
+        notify.show(`Succesfully edited category`, 'success', 6000),
+        this.props.getCategories()
+      );
   deleteAction = () =>
     this.props
       .deleteCategory(this.state.data.category_id)
       .then(
         this.setState({ isOpen: false }),
-        notify.show(`Succesfully deleted category`, 'error', 6000)
+        notify.show(`Succesfully deleted category`, 'error', 6000),
+        this.props.getCategories()
       );
 
   render() {
