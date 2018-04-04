@@ -27,33 +27,24 @@ export const recipeDeleted = recipeObject => ({
   payload: recipeObject
 });
 
+// {
+//   /** Action Creators **/
+// }
+
 export const createRecipe = (data, id) => dispatch =>
   api.recipe
     .createRecipe(data, id)
-    .then(
-      recipeObject => dispatch(recipeCreated(recipeObject)),
-      api.recipe
-        .getRecipes(id)
-        .then(recipeObject => dispatch(recipeFetched(recipeObject)))
-    );
+    .then(recipeObject => dispatch(recipeCreated(recipeObject)));
 
 export const editRecipe = (data, id) => dispatch =>
   api.recipe
     .editRecipe(data, id)
-    .then(
-      recipeObject => dispatch(recipeEdited(recipeObject)),
-      api.recipe
-        .getRecipes(id)
-        .then(recipeObject => dispatch(recipeFetched(recipeObject)))
-    );
+    .then(recipeObject => dispatch(recipeEdited(recipeObject)));
 
 export const deleteRecipe = id => dispatch =>
   api.recipe
     .deleteRecipe(id)
-    .then(
-      recipeObject => dispatch(recipeDeleted(recipeObject)),
-      this.getRecipes()
-    );
+    .then(recipeObject => dispatch(recipeDeleted(recipeObject)));
 
 export const getRecipes = id => dispatch =>
   api.recipe
