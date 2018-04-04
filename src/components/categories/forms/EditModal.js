@@ -34,7 +34,7 @@ class EditModal extends React.Component {
             errors: error.response.data,
             loading: false
           });
-          notify.show(errors);
+          notify.show(`${error.response.data.message}`, 'error', 6000);
         }
       });
     }
