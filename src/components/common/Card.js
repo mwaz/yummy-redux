@@ -25,10 +25,12 @@ class Card extends React.Component {
   submit = data =>
     this.props
       .editCategory(data, this.state.data.category_id)
-      .then(
-        notify.show(`Succesfully edited category`, 'success', 6000),
-        this.props.getCategories()
-      );
+      .then(response => {
+        if (response) {
+          notify.show(`Successfully edited category`, 'success', 6000),
+            this.props.getCategories();
+        }
+      });
   deleteAction = () =>
     this.props
       .deleteCategory(this.state.data.category_id)
@@ -53,7 +55,7 @@ class Card extends React.Component {
             <div className="row">
               <div className="col s3">
                 {' '}
-                <ViewModal />{' '}
+                <ViewModal category_id={this.props.category_id} />{' '}
               </div>
               <div className="col s3">
                 {' '}
