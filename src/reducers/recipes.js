@@ -5,7 +5,7 @@ import {
   RECIPE_FETCHED
 } from '../components/types';
 
-export function recipes(state = {}, action = {}) {
+export function recipes(state = {}, action) {
   switch (action.type) {
     case RECIPE_CREATED:
       return action.recipeObject;
