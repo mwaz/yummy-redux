@@ -5,6 +5,8 @@ import NavigationBar from '../../common/NavigationBar';
 import InlineError from '../../messages/InlineError';
 import SearchForm from '../../common/SearchForm';
 import AddRecipe from '../../categories/recipes/forms/AddRecipe';
+import { connect } from 'react-redux';
+import RecipeCard from '../recipes/RecipeCard';
 
 class RecipeComponent extends React.Component {
   constructor(props) {
@@ -36,7 +38,7 @@ class RecipeComponent extends React.Component {
             errors: error.response.data.message,
             loading: false
           });
-          notify.show(`${error.response.data.message}, 'error', 6000`);
+          notify.show(`${error.response.data.message}`, 'error', 6000);
         }
       });
     }
@@ -53,7 +55,8 @@ class RecipeComponent extends React.Component {
 
   render() {
     const { errors } = this.state;
-    console.log({ errors });
+    const { recipes } = this.props;
+    console.log({ recipes }.length + 'length');
     return (
       <div>
         <NavigationBar />
@@ -75,7 +78,11 @@ class RecipeComponent extends React.Component {
 
                       <span className="white-text">
                         <h5 style={{ fontSize: '18px' }}>Add Recipes</h5>
-                        <AddRecipe onSubmit={this.onSubmit} errors={errors} />
+                        <AddRecipe
+                          onSubmit={this.onSubmit}
+                          errors={errors}
+                          onChange={this.onChange}
+                        />
                       </span>
                     </div>
                   </div>
@@ -87,14 +94,18 @@ class RecipeComponent extends React.Component {
 
                 {/* {categories.length === 0 && <AddCategories />} */}
                 <div className="row">
-                  <div className="col s12 m4">
-                    <div className="card blue-grey darken-1">
-                      <div className="card-content white-text">
-                        <span className="card-title">Card Title</span>
-                        <p>Just a card</p>
-                      </div>
-                    </div>
-                  </div>
+                  {recipes && recipes.length > 0 ? (
+                    (<p> blah </p>,
+                    recipes.map(recipe => (
+                      <RecipeCard
+                        date_created={recipe.date_created}
+                        date_modified={recipe.date_modified}
+                        recipe_name={recipe.recipe_name}
+                      />
+                    )))
+                  ) : (
+                    <p> No categories </p>
+                  )}
                 </div>
                 <Row>
                   <Col className="s2 m4"> </Col>
@@ -112,4 +123,10 @@ class RecipeComponent extends React.Component {
     );
   }
 }
-export default RecipeComponent;
+
+function mapStateToProps(state) {
+  return {
+    recipes: state.recipes
+  };
+}
+export default connect(mapStateToProps)(RecipeComponent);

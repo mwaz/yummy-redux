@@ -9,44 +9,44 @@ import api from '../api';
 
 export const recipeCreated = recipeObject => ({
   type: RECIPE_CREATED,
-  payload: recipeObject
+  recipeObject
 });
 
 export const recipeEdited = recipeObject => ({
   type: RECIPE_EDITED,
-  payload: recipeObject
+  recipeObject
 });
 
 export const recipeFetched = recipeObject => ({
   type: RECIPE_FETCHED,
-  payload: recipeObject
+  recipeObject
 });
 
 export const recipeDeleted = recipeObject => ({
   type: RECIPE_DELETED,
-  payload: recipeObject
+  recipeObject
 });
 
 // {
 //   /** Action Creators **/
 // }
 
-export const createRecipe = (data, id) => dispatch =>
-  api.recipe
-    .createRecipe(data, id)
+export const createRecipe = (data, categoryId) => dispatch =>
+  api.recipes
+    .createRecipe(data, categoryId)
     .then(recipeObject => dispatch(recipeCreated(recipeObject)));
 
-export const editRecipe = (data, id) => dispatch =>
-  api.recipe
-    .editRecipe(data, id)
+export const editRecipe = (data, categoryId, id) => dispatch =>
+  api.recipes
+    .editRecipe(data, categoryId, id)
     .then(recipeObject => dispatch(recipeEdited(recipeObject)));
 
-export const deleteRecipe = id => dispatch =>
-  api.recipe
-    .deleteRecipe(id)
+export const deleteRecipe = (categoryId, id) => dispatch =>
+  api.recipes
+    .deleteRecipe(categoryId, id)
     .then(recipeObject => dispatch(recipeDeleted(recipeObject)));
 
 export const getRecipes = id => dispatch =>
-  api.recipe
+  api.recipes
     .getRecipes(id)
     .then(recipeObject => dispatch(recipeFetched(recipeObject)));
