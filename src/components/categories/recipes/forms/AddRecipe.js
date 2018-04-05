@@ -5,7 +5,6 @@ import InlineError from '../../../messages/InlineError';
 class AddRecipe extends React.Component {
   render() {
     const errors = this.props.errors;
-    console.log(errors);
     return (
       <div>
         <Row>
@@ -33,7 +32,7 @@ class AddRecipe extends React.Component {
                       name="recipe_name"
                       validate
                       value={this.props.category_name}
-                      onChange={this.onChange}
+                      onChange={this.props.onChange}
                     />
                   </Row>
                   <Row>
@@ -44,7 +43,7 @@ class AddRecipe extends React.Component {
                       name="recipe_ingredients"
                       validate
                       value={this.props.recipe_ingredients}
-                      onChange={this.onChange}
+                      onChange={this.props.onChange}
                     />
                   </Row>
                   <Row>
@@ -52,10 +51,10 @@ class AddRecipe extends React.Component {
                     <Input
                       s={8}
                       label="Recipe Methods"
-                      name="recipe_ingredients"
+                      name="recipe_methods"
                       validate
                       value={this.props.recipe_methods}
-                      onChange={this.onChange}
+                      onChange={this.props.onChange}
                     />
                   </Row>
                   <Button
