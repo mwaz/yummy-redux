@@ -28,15 +28,18 @@ class EditModal extends React.Component {
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true, editOpen: false });
-      this.props.submit(this.state.data).catch(error => {
-        if (error.response) {
-          this.setState({
-            errors: error.response.data,
-            loading: false
-          });
-          notify.show(`${error.response.data.message}`, 'error', 6000);
-        }
-      });
+      this.props
+        .submit(this.state.data)
+        .then(this.setState({ editOpen: false }))
+        .catch(error => {``
+          if (error.response) {
+            this.setState({
+              errors: error.response.data,
+              loading: false
+            });
+            notify.show(`${error.response.data.message}`, 'error', 6000);
+          }
+        });
     }
   };
 
@@ -50,7 +53,7 @@ class EditModal extends React.Component {
   render() {
     const { errors, data, editOpen } = this.state;
     const { categories } = this.props;
-    console.log(editOpen);
+
     return (
       <Modal
         id={this.props.category_id}
