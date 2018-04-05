@@ -32,32 +32,24 @@ export default {
       axiosInstance.get('/categories/').then(response => response.data)
   },
   recipes: {
-    createRecipe: (recipeData, id) =>
+    createRecipe: (recipeData, categoryID) =>
       axiosInstance
-        .post(
-          `/categories/${this.props.match.params.category_id}/recipes/${id}`,
-          recipeData
-        )
+        .post(`/categories/${categoryID}/recipes/`, recipeData)
         .then(response => response.data),
 
-    editRecipe: (recipeData, id) =>
+    editRecipe: (recipeData, categoryID, id) =>
       axiosInstance
-        .put(
-          `/categories/${this.props.match.params.category_id}/recipes/${id}`,
-          recipeData
-        )
+        .put(`/categories/${categoryID}/recipes/${id}`, recipeData)
         .then(response => response.data),
 
-    deleteRecipe: id =>
+    deleteRecipe: (categoryID, id) =>
       axiosInstance
-        .delete(
-          `/categories/${this.props.match.params.category_id}/recipes/${id}`
-        )
+        .delete(`/categories/${categoryID}/recipes/${id}`)
         .then(response => response.data),
 
-    getRecipes: id =>
+    getRecipes: categoryID =>
       axiosInstance
-        .get(`/categories/${this.props.match.params.category_id}/recipes/${id}`)
+        .get(`/categories/${categoryID}/recipes/`)
         .then(response => response.data)
   }
 };
