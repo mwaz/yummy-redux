@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ViewModal from '../categories/forms/ViewModal';
 import EditModal from '../categories/forms/EditModal';
 import DeleteModal from '../categories/forms/DeleteModal';
 import Toaster from '../common/Toaster';
@@ -55,7 +54,9 @@ class Card extends React.Component {
             <div className="row">
               <div className="col s3">
                 {' '}
-                <ViewModal category_id={this.props.category_id} />{' '}
+                <a href={`/categories/${this.props.category_id}/recipes/`}>
+                  View Recipes{' '}
+                </a>
               </div>
               <div className="col s3">
                 {' '}
