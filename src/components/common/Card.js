@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import EditModal from '../categories/forms/EditModal';
 import DeleteModal from '../categories/forms/DeleteModal';
 import Toaster from '../common/Toaster';
@@ -86,6 +87,11 @@ class Card extends React.Component {
     );
   }
 }
+
+Card.propTypes = {
+  category_id: PropTypes.number.isRequired,
+  category_name: PropTypes.string.isRequired
+};
 export default connect(null, { editCategory, getCategories, deleteCategory })(
   Card
 );

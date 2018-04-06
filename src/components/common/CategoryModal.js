@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const CategoryModal = props => {
   return (
@@ -14,4 +15,9 @@ const CategoryModal = props => {
     </div>
   );
 };
+
+CategoryModal.propTypes = {
+  onChange: PropTypes.func.isRequired
+};
+
 export default CategoryModal;
