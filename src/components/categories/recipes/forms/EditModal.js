@@ -3,6 +3,7 @@ import { Modal, Row, Input, Button } from 'react-materialize';
 import InlineError from '../../../messages/InlineError';
 import { error } from 'util';
 import { notify } from 'react-notify-toast';
+import PropTypes from 'prop-types';
 
 class EditModal extends React.Component {
   constructor(props) {
@@ -57,37 +58,49 @@ class EditModal extends React.Component {
 
     return (
       <Modal
-        id={this.props.category_id}
+        id={this.props.recipe_id}
         open={this.state.editOpen}
         style={{ display: this.props.display }}
-        header="Edit Category"
+        header="Edit Recipe"
         trigger={<a href="#"> Edit </a>}
       >
-        {errors.message && (
-          <div
-            className="alert alert-danger"
-            role="alert"
-            style={{ color: '#880000' }}
-          >
-            <strong> {errors.message} </strong>
-          </div>
-        )}
-
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.props.onSubmit}>
           <div>
-            {errors && <InlineError text={errors.category_name} />}
             <Row>
+              {errors && <InlineError text={errors.recipe_name} />}
               <Input
-                s={6}
-                label="Category Name"
-                name="category_name"
+                s={8}
+                label="recipe Name"
+                name="recipe_name"
                 validate
-                value={this.state.data.category_name}
-                onChange={this.onChange}
+                value={this.props.category_name}
+                onChange={this.props.onChange}
               />
             </Row>
-            <Button type="submit" waves="light" onSubmit={this.onSubmit}>
-              Edit Category
+            <Row>
+              {errors && <InlineError text={errors.recipe_ingredients} />}
+              <Input
+                s={8}
+                label="Recipe Ingredients"
+                name="recipe_ingredients"
+                validate
+                value={this.props.recipe_ingredients}
+                onChange={this.props.onChange}
+              />
+            </Row>
+            <Row>
+              {errors && <InlineError text={errors.recipe_methods} />}
+              <Input
+                s={8}
+                label="Recipe Methods"
+                name="recipe_methods"
+                validate
+                value={this.props.recipe_methods}
+                onChange={this.props.onChange}
+              />
+            </Row>
+            <Button type="submit" waves="light" onSubmit={this.props.onSubmit}>
+              Edit Recipe
             </Button>
 
             <Row />

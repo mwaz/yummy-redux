@@ -66,6 +66,7 @@ class DeleteModal extends React.Component {
   }
 }
 DeleteModal.propTypes = {
-  deleteAction: PropTypes.func.isRequired
+  deleteAction: PropTypes.func.isRequired,
+  category_name: PropTypes.string.isRequired
 };
 export default DeleteModal;

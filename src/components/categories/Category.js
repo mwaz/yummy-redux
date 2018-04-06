@@ -110,6 +110,7 @@ class CategoryComponent extends React.Component {
                     (<p> blah </p>,
                     categories.map(category => (
                       <Card
+                        key={category.id}
                         setMessage={this.setMessage}
                         redirectCategories={this.redirectCategories}
                         category_id={category.id}
@@ -144,5 +145,15 @@ function mapStateToProps(state) {
     categories: state.category
   };
 }
+
+CategoryComponent.propTypes = {
+  getCategories: PropTypes.func.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  categories: PropTypes.instanceOf(Object)
+};
+CategoryComponent.defaultProps = {
+  categories: null,
+  text: null
+};
 
 export default connect(mapStateToProps, { getCategories })(CategoryComponent);

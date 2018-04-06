@@ -3,6 +3,7 @@ import { Modal, Row, Input, Button } from 'react-materialize';
 import InlineError from '../../messages/InlineError';
 import { error } from 'util';
 import { notify } from 'react-notify-toast';
+import PropTypes from 'prop-types';
 
 class EditModal extends React.Component {
   constructor(props) {
@@ -31,7 +32,8 @@ class EditModal extends React.Component {
       this.props
         .submit(this.state.data)
         .then(this.setState({ editOpen: false }))
-        .catch(error => {``
+        .catch(error => {
+          ``;
           if (error.response) {
             this.setState({
               errors: error.response.data,
@@ -97,4 +99,9 @@ class EditModal extends React.Component {
   }
 }
 
+EditModal.propTypes = {
+  category_id: PropTypes.number.isRequired,
+  category_name: PropTypes.string.isRequired,
+  submit: PropTypes.func.isRequired
+};
 export default EditModal;
